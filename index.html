@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brunch / ChromeOS Installer</title>
+  <link rel="stylesheet" href="/src/styles.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       מסך טעינה
+  ══════════════════════════════════════════ -->
+  <div id="screen-loading" class="screen screen-center">
+    <div class="spinner"></div>
+    <p id="loading-msg" class="loading-text">טוען...</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       מסך: אין הרשאות Admin
+  ══════════════════════════════════════════ -->
+  <div id="screen-no-admin" class="screen screen-center" style="display:none">
+    <div class="error-icon">🔒</div>
+    <h2>נדרשות הרשאות מנהל מערכת</h2>
+    <p class="subtitle">
+      הכלי צריך לרוץ כ-Administrator כדי לכתוב ל-Registry
+      ולגשת לקבצי המערכת.
+    </p>
+    <p class="subtitle">
+      לחץ ימני על הקובץ → <strong>"הפעל כמנהל מערכת"</strong>
+    </p>
+    <button class="btn btn-primary" onclick="window.location.reload()">
+      נסה שוב
+    </button>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       מסך: שגיאה כללית
+  ══════════════════════════════════════════ -->
+  <div id="screen-error" class="screen screen-center" style="display:none">
+    <div class="error-icon">❌</div>
+    <h2>שגיאה</h2>
+    <p id="error-msg" class="error-text">שגיאה לא ידועה</p>
+    <button class="btn btn-ghost" onclick="window.location.reload()">
+      ← חזור לתחילה
+    </button>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       מסך ראשי — ויזארד רב-שלבי
+  ══════════════════════════════════════════ -->
+  <div id="screen-main" class="screen" style="display:none">
+
+    <!-- כותרת עליונה -->
+    <header class="app-header">
+      <div class="app-logo">
+        <span class="logo-icon">🔵</span>
+        <span class="logo-text">Brunch / ChromeOS Installer</span>
+      </div>
+
+      <!-- מחוון שלבים -->
+      <div class="step-indicator">
+        <div class="step-dot" id="step-dot-1">
+          <span class="dot-num">1</span>
+          <span class="dot-label">כונן</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-dot" id="step-dot-2">
+          <span class="dot-num">2</span>
+          <span class="dot-label">קובץ</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-dot" id="step-dot-3">
+          <span class="dot-num">3</span>
+          <span class="dot-label">אישור</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-dot" id="step-dot-4">
+          <span class="dot-num">4</span>
+          <span class="dot-label">התקנה</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-dot" id="step-dot-5">
+          <span class="dot-num">5</span>
+          <span class="dot-label">סיום</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- תוכן השלב הנוכחי — מוחלף דינמית ע"י TypeScript -->
+    <main id="step-content" class="step-content">
+      <!-- TypeScript מרנדר כאן -->
+    </main>
+
+  </div><!-- /screen-main -->
+
+  <script type="module" src="/src/app.ts"></script>
+</body>
+</html>

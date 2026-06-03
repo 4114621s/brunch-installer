@@ -1,0 +1,50 @@
+[package]
+name = "brunch-installer"
+version = "1.0.0"
+description = "מתקין Brunch Framework / ChromeOS עבור Windows"
+authors = []
+edition = "2021"
+
+# -------------------------------------------------------
+# חובה ב-Tauri v2: הגדרת ספרייה עם שלושה סוגי crate
+# -------------------------------------------------------
+[lib]
+name = "brunch_installer_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+# מסגרת Tauri — ממשק גרפי חוצה-פלטפורמות
+tauri = { version = "2", features = [] }
+
+# פלאגין לתיבות דיאלוג (פתיחת קובץ)
+tauri-plugin-dialog = "2"
+
+# פלאגין להרצת פקודות מערכת
+tauri-plugin-shell = "2"
+
+# סריאליזציה: המרת מבני Rust ל-JSON לשליחה ל-JavaScript
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# ריצה אסינכרונית — נדרש לפקודות Tauri
+tokio = { version = "1", features = ["full"] }
+
+# -------------------------------------------------------
+# תלויות ייחודיות ל-Windows בלבד
+# גישה ל-Registry של Windows
+# -------------------------------------------------------
+[target.'cfg(windows)'.dependencies]
+winreg = "0.52"
+
+# -------------------------------------------------------
+# הגדרות אופטימיזציה לבנייה
+# -------------------------------------------------------
+[profile.release]
+panic = "abort"       # הפחתת גודל קובץ EXE
+codegen-units = 1     # אופטימיזציה מקסימלית
+lto = true            # Link-Time Optimization
+opt-level = "s"       # אופטימיזציה לגודל (s = size)
+strip = true          # הסרת debug symbols
